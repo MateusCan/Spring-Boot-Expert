@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface Clientes extends JpaRepository<Cliente, Integer> {
+public interface ClientesRepository extends JpaRepository<Cliente, Integer> {
 
     //@Query("SELECT u FROM CLIENTES u WHERE u.NOME = ?")
     //List<Clientes> findByNomeLike(String nome);

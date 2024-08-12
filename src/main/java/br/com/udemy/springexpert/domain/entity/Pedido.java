@@ -1,11 +1,19 @@
 package br.com.udemy.springexpert.domain.entity;
 
+import br.com.udemy.springexpert.domain.entity.enums.StatusPedido;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Entity
 @Table(name = "pedido")
 public class Pedido {
@@ -24,55 +32,10 @@ public class Pedido {
     @Column (name = "total", precision = 20, scale = 2) //Coluna total = (20,2)
     private BigDecimal total;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private StatusPedido status;
+
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
-
-    public List<ItemPedido> getItens() {
-        return itens;
-    }
-
-    public void setItens(List<ItemPedido> itens) {
-        this.itens = itens;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public LocalDate getDataPedido() {
-        return dataPedido;
-    }
-
-    public void setDataPedido(LocalDate dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido{" +
-                "id=" + id +
-                ", dataPedido=" + dataPedido +
-                ", total=" + total +
-                '}';
-    }
 }
