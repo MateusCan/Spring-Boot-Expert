@@ -31,7 +31,7 @@ public class PedidoController {
 
     @PostMapping("incluir-pedido")
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer criarPedido(@RequestBody @Valid PedidoDTO dto) {
+    public Integer criarPedido(@RequestBody PedidoDTO dto) {
         Pedido pedido = service.incluirPedido(dto);
         return pedido.getId();}
 
@@ -43,7 +43,7 @@ public class PedidoController {
 
     @PatchMapping("atualiza-status/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarStatus(@PathVariable Integer id, @RequestBody @Valid AtualizaStatusPedidoDTO dto) {
+    public void atualizarStatus(@PathVariable Integer id, @RequestBody AtualizaStatusPedidoDTO dto) {
         service.atualizaStatus(id, StatusPedido.valueOf(dto.getStatus()));
     }
 
