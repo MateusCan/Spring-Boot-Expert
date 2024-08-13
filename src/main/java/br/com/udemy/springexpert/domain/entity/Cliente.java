@@ -17,7 +17,7 @@ import java.util.Set;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@Column(name = "id_cliente") caso o campo tenha nome diferente da base
     private Integer id;
 

@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/clientes/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/produtos/**").hasRole("ADMIN")
+                        .requestMatchers("/api/produtos/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/usuarios/**").permitAll()
                         .anyRequest().authenticated()
                 )
