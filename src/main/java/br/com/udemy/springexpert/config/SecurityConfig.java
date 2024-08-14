@@ -9,11 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,7 +37,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public OncePerRequestFilter jwtFilter(){
+    public OncePerRequestFilter jwtFilter() {
         return new JwtAuthFilter(jwtService, usuarioService);
     }
 
@@ -48,6 +46,13 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) //Desativa a proteção CSRF. É uma proteção de segurança que impete execução em sites maliciosos
                 .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/v2/api-docs",
+                                "/configuration/ui",
+                                "/swagger-resources/**",
+                                "/configuration/security",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/webjars/**").permitAll()
                         .requestMatchers("/api/clientes/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/pedidos/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/produtos/**").hasAnyRole("USER", "ADMIN")
